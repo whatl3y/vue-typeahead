@@ -19,6 +19,22 @@ import Axios from 'axios'
 Vue.prototype.$http = Axios
 ```
 
+or you can use another, preferred HTTP client as long as it is wrapped in the
+following interface, which is what vue-typeahead expects:
+```
+Vue.prototype.$http = {
+  async get(src, { params }) {
+    // here make your backend request however you need with the client
+    // of choice, and make sure your response data is returned as an
+    // object with key `data`
+    //
+    // For example:
+    const data = await myPreferredAjaxHandler(src, params)
+    return { data }
+  }
+}
+```
+
 If you are using `vue@1.0.22+`, you could use the new [`extends`](http://vuejs.org/api/#extends) property (see below).
 
 Otherwise, the `mixins` way also works.
